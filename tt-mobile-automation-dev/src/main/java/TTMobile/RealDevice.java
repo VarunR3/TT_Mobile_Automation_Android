@@ -30,6 +30,7 @@ import WatchMode.WatchMode;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -41,14 +42,14 @@ import java.util.concurrent.TimeUnit;
 
 public class RealDevice {
 
-    final static String APP = "/Users/maxwellqiu/APKs/guardTracker-5.8.13-tracktik-release.apk";
+    final static String APP = "/Users/varunrajkanchumarthi/Downloads/TrackTik.ipa";
 
     final static String SERVER_URL_ANDROID = "http://127.0.0.1:4723/wd/hub";
     final static int TIME_SLEEP = 4;
-    final static String DEVICE_NAME = "Pixel 3";
-    final static String UDID = "8C3X1HGY3";
-    final static String PLATFORM_NAME = "Android";
-    final static String PLATFORM_VERSION = "10";
+    final static String DEVICE_NAME = "Varzphone";
+    final static String UDID = "b518c2f8db25542ba899b02136bb0fa053eaf8cd";
+    final static String PLATFORM_NAME = "IOS";
+    final static String PLATFORM_VERSION = "14.4.2";
     final static String APP_PACKAGE = "com.staffr.app";
     final static String APP_ACTIVITY = "com.staffr.app.GuardTrackerActivity";
 
@@ -87,19 +88,19 @@ public class RealDevice {
     public void setup() throws IOException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
-        capabilities.setCapability("autoGrantPermissions", "false" );
-        capabilities.setCapability("databaseEnabled", "true");
-        capabilities.setCapability("noRest", "false");
-        capabilities.setCapability("full-reset", "false");
+        //capabilities.setCapability("autoGrantPermissions", "false" );
+       // capabilities.setCapability("databaseEnabled", "true");
+       // capabilities.setCapability("noRest", "false");
+        //capabilities.setCapability("full-reset", "false");
         capabilities.setCapability("deviceName", DEVICE_NAME);
         capabilities.setCapability("udid", UDID);
         capabilities.setCapability("platformName", PLATFORM_NAME);
         capabilities.setCapability("platformVersion", PLATFORM_VERSION);
-        capabilities.setCapability("appPackage",APP_PACKAGE);
-        capabilities.setCapability("appActivity", APP_ACTIVITY);
+        //capabilities.setCapability("appPackage",APP_PACKAGE);
+        //capabilities.setCapability("appActivity", APP_ACTIVITY);
         capabilities.setCapability("app", APP);
-        if (PLATFORM_NAME.equals("Android")) {
-            driver = new AndroidDriver(
+        if (PLATFORM_NAME.equals("IOS")) {
+            driver = new IOSDriver<MobileElement>(
                     new URL(SERVER_URL_ANDROID),
                     capabilities);
         }

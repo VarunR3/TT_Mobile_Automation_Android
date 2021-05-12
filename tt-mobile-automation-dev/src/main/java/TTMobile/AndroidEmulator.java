@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeTest;
 import java.net.URL;
 
 public class AndroidEmulator extends Emulator{
-    final static String APP = "/Users/varunrajkanchumarthi/Downloads/guardTracker-5.12.5-tracktik-release.apk";
+    final static String APP = "/Users/varunrajkanchumarthi/Downloads/guardTracker-5.12.6-tracktik-release.apk";
 
     final static String SERVER_URL_ANDROID = "http://localhost:4723/wd/hub";
     final static int TIME_SLEEP = 4;

@@ -134,7 +134,7 @@ public class SettingPage extends BasePage {
         TimeUnit.SECONDS.sleep(SLEEP_TIME);
         clockOutSignInElement.click();
         TimeUnit.SECONDS.sleep(SLEEP_TIME);
-        TimeUnit.SECONDS.sleep(SLEEP_TIME);
+
         swipe.swipeToUp();
         TimeUnit.SECONDS.sleep(SLEEP_TIME);
        // dashboardSettingsElement.click();

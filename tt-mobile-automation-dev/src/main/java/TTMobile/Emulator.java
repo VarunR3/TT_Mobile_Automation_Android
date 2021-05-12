@@ -30,15 +30,33 @@ import Sites.Sites;
 import Team.Team;
 import VisitorLogs.VisitorLog;
 import WatchMode.WatchMode;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.ExtentReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Emulator {
@@ -78,6 +96,10 @@ public class Emulator {
     protected AppiumDriver<MobileElement> driver;
     protected String platformName;
     Swipe swipe;
+
+    public ExtentHtmlReporter htmlReporter;
+    public ExtentReports extent;
+    public ExtentTest test;
 
     public void setup() throws Exception {
 
@@ -138,25 +160,53 @@ public class Emulator {
         TimeUnit.SECONDS.sleep(TIME_SLEEP);
     }
 
+    @BeforeTest
+    public void setExtent()
+    {
+        htmlReporter=new ExtentHtmlReporter(System.getProperty("user.dir")+"/test-output/myReport.html");
+        htmlReporter.config().setDocumentTitle("Automation Report");
+        htmlReporter.config().setReportName("Android Functional Test");
+        htmlReporter.config().setTheme(Theme.DARK);
+
+        extent=new ExtentReports();
+        extent.attachReporter(htmlReporter);
+    }
+//    @AfterTest
+//    public void endReport()
+//    {
+//        extent.flush();
+//    }
+
+
     @Test(priority = 0, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void login() throws InterruptedException {
+
+        test=extent.createTest("Login");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-       // geoFencingSetup.setLocation();
+        test.createNode("appPermission");
         appPermission.appPermission();
+        test.createNode("guardLogin");
         siteLogin.guardLogin();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        extent.flush();
     }
 
     @Test(priority = 1, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void clockIn() {
 
+        test=extent.createTest("ClockIn");
+
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        test.createNode("clockIn");
         clockIn.clockIn();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        extent.flush();
     }
 
     @Test(priority = 2,groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void Positions() throws InterruptedException {
+
+        test=extent.createTest("Positions");
 
 
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -164,10 +214,13 @@ public class Emulator {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         changePosition.changePosition();
         Thread.sleep(10000);
+        extent.flush();
     }
 
     @Test(priority = 3, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void startTour() throws InterruptedException {
+
+        test=extent.createTest("startTour");
 
         homePage();
         System.out.println("Checkpoints Test...");
@@ -175,31 +228,44 @@ public class Emulator {
 
         startTour.checkpointsDashboard();
 
-        //startTour.viewCheckPoints();
+
 
         Thread.sleep(10000);
+        extent.flush();
     }
 
     @Test(priority = 4, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void createReport() throws InterruptedException {
-        //homePagecheck();
+        test=extent.createTest("createReport");
+        homePage();
         System.out.println("Create & Submit the Custom Report");
 
         reportCreate.reportClick();
         reportCreate.reportCreate();
+
         reportCreate.reportTextBox();
+        test.createNode("reportTextBox");
         reportCreate.reportPicture();
+        test.createNode("reportPicture");
         reportCreate.listIncidentBox();
+        test.createNode("listIncidentBox");
         reportCreate.drawVehicle();
+        test.createNode("drawVehicle");
         reportCreate.drawSection();
+        test.createNode("drawSection");
         reportCreate.reportSignature();
+        test.createNode("reportSignature");
         reportCreate.selectTime();
+        test.createNode("selectTime");
         reportCreate.sendReport();
+        test.createNode("sendReport");
         Thread.sleep(10000);
+        extent.flush();
     }
 
     @Test(priority = 5, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void browseReport() throws InterruptedException {
+        test=extent.createTest("browseReport");
         homePage();
         System.out.println("Browse & Verify the Custom Report");
         reportBrowse.reportClick();
@@ -213,10 +279,12 @@ public class Emulator {
         reportBrowse.editSignature();
         reportBrowse.editSelectTime();
         reportBrowse.sendNewReport();
+        extent.flush();
     }
 
     @Test(priority = 6, groups = {TestDevice.REAL_DEVICE})
     public void mobileDispatch() throws InterruptedException {
+        test=extent.createTest("mobileDispatch");
         homePage();
         System.out.println("Mobile Dispatch Test...");
         dispatchTasks.dashboardDispatchTask();
@@ -224,23 +292,29 @@ public class Emulator {
         dispatchTasks.dispatchTaskStatus();
         dispatchTasks.fillOutReport();
         dispatchTasks.allClear();
+        extent.flush();
     }
 
     @Test(priority = 7, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void messageBoard() throws InterruptedException {
+
+        test=extent.createTest("messageBoard");
 
         homePage();
         messageBoard.dashboardMessageBoard();
         messageBoard.postNewMessage();
         messageBoard.dashboardMessageBoard();
        messageBoard.newMessage();
+        extent.flush();
     }
 
     @Test(priority = 8, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void postEscalation() throws InterruptedException {
+        test=extent.createTest("postEscalation");
         homePage();
         postEscalation.dashboardPostEscalation();
         postEscalation.checkPostEscalation();
+        extent.flush();
     }
 
     @Test(priority = 9, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
@@ -285,7 +359,7 @@ public class Emulator {
         schedules.verifySchedule();
     }
 
-    @Test(priority = 12, groups = {TestDevice.REAL_DEVICE})
+    @Test(priority = 13, groups = {TestDevice.REAL_DEVICE})
     public void watchMode() throws InterruptedException {
         watchMode.watchModeDashboard();
         watchMode.startRear();
@@ -293,7 +367,7 @@ public class Emulator {
         //On the Emulator it doesn't have the Flash Option
     }
 
-    @Test(priority = 13, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
+    @Test(priority = 14, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void panicButton() throws InterruptedException {
         homePage();
         panicButton.panicButtonDashboard();
@@ -302,7 +376,7 @@ public class Emulator {
         TimeUnit.SECONDS.sleep(TIME_SLEEP);
     }
 
-    @Test(priority = 14, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
+    @Test(priority = 15, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void appSettings() throws InterruptedException {
         System.out.println("App Settings...");
         homePage();
@@ -312,7 +386,7 @@ public class Emulator {
         appSettings.barcodeScanner();
     }
 
-    @Test(priority = 15, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
+    @Test(priority = 16, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void logout() throws InterruptedException {
         TimeUnit.SECONDS.sleep(TIME_SLEEP);
         System.out.println("The Guard Logout...");
@@ -323,11 +397,11 @@ public class Emulator {
         logout.removeSiteLicense();
     }
 
-    @Test(priority = 16, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
+    @Test(priority = 17, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void zoneLogin() throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         // geoFencingSetup.setLocation();
-        appPermission.appPermission();
+        //appPermission.appPermission();
         zone.guardLogin();
         TimeUnit.SECONDS.sleep(TIME_SLEEP);
         TimeUnit.SECONDS.sleep(TIME_SLEEP);
@@ -335,7 +409,7 @@ public class Emulator {
         TimeUnit.SECONDS.sleep(TIME_SLEEP);
     }
 
-    @Test(priority = 17, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
+    @Test(priority = 18, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void sites() throws InterruptedException {
         TimeUnit.SECONDS.sleep(TIME_SLEEP);
         androidDashboardPage.dashboardSites();
@@ -352,7 +426,7 @@ public class Emulator {
         sitesPage.leaveSite();
     }
 
-    @Test(priority = 18, groups = {TestDevice.REAL_DEVICE})
+    @Test(priority = 19, groups = {TestDevice.REAL_DEVICE})
     public void runsheet() throws InterruptedException {
         runsheet.runsheetDashboard();
         runsheet.selectRunsheet();
@@ -369,28 +443,28 @@ public class Emulator {
         runsheet.finish();
     }
 
-    @Test(priority = 19, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
+    @Test(priority = 20, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void zoneLogout() throws InterruptedException {
         homePage();
         logout.clockOutSignOut();
         logout.removeSiteLicense();
     }
 
-    @Test(priority = 20, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
+    @Test(priority = 21, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void departmentLogin() throws InterruptedException {
         //appPermission.appPermission();
         department.guardLogin();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
-    @Test(priority = 21, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
+    @Test(priority = 22, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void BYOD() throws InterruptedException {
         byod.byodClockIn();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
 
-    @Test(priority = 22, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
+    @Test(priority = 23, groups = {TestDevice.REAL_DEVICE, TestDevice.EMULATOR})
     public void breakManagement() throws InterruptedException {
 
         breakManagement.startBreak();
@@ -404,6 +478,46 @@ public class Emulator {
         siteLogin.guardLogin();
         logout.clockOutSignIn();
         logout.removeSiteLicense();
+    }
+
+    @AfterMethod
+    public void tearDown(ITestResult result) throws IOException {
+
+        if (result.getStatus() == ITestResult.FAILURE) {
+            test.log(Status.FAIL, "TEST CASE FAILED IS " + result.getName()); // to add name in extent report
+            test.log(Status.FAIL, "TEST CASE FAILED IS " + result.getThrowable()); // to add error/exception in extent report
+
+            String screenshotPath = getScreenshot(driver, result.getName());
+           // test.addScreenCaptureFromPath(screenshotPath);
+            //test.log(Status.FAIL, "ScreenshotBelow: "+test.addScreenCaptureFromPath(screenshotPath));
+            test.fail(screenshotPath, MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath).build());
+
+
+
+
+        } else if (result.getStatus() == ITestResult.SKIP) {
+            test.log(Status.SKIP, "Test Case SKIPPED IS " + result.getName());
+        }
+        else if (result.getStatus() == ITestResult.SUCCESS) {
+            test.log(Status.PASS, "Test Case PASSED IS " + result.getName());
+        }
+
+
+
+    }
+
+    public static String getScreenshot(AppiumDriver driver, String screenshotName) throws IOException {
+        String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+
+        // after execution, you could see a folder "FailedTestsScreenshots" under src folder
+        String destination = System.getProperty("user.dir") + "/Screenshots/" + screenshotName + dateName + ".png";
+        File finalDestination = new File(destination);
+        FileUtils.copyFile(source, finalDestination);
+
+        return destination;
+
     }
 
 

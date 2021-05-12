@@ -41,11 +41,7 @@ public abstract class BaseLogin  {
         setupPage.setBaseUrl(BASE_URL);
         setupPage.setSetupCode(installationCode);
         setupPage.clickInstall();
-        TimeUnit.SECONDS.sleep(SLEEP_TIME);
-
-       // setupPage.checkLicenseUsage();
-
-
+        setupPage.checkLicenseUsage();
         loginPage.setUsername(USERNAME);
         loginPage.setPassword(PASSWORD);
         loginPage.clickSubmit();

@@ -27,7 +27,7 @@ public class StartTour {
 
     public void checkpointsDashboard() throws InterruptedException {
         System.out.println("View Checkpoints");
-        //dashboardPage.dashboardCheckpoints();
+
         checkpointPage.viewCheckpoints();
     }
 

@@ -83,7 +83,7 @@ public class RunsheetPage extends BasePage{
         MobileElement Rsheet = (MobileElement) driver.findElement(
                 MobileBy.AndroidUIAutomator(
                         "new UiScrollable(new UiSelector()).scrollIntoView("
-                        + "new UiSelector().text(\"Wednesday / 08:00 AM - 11:00 PM / Position_Test / Mobile Automation Runsheet1\"));"));
+                        + "new UiSelector().text(\"Tuesday / 08:00 AM - 11:00 PM / Position_Test / Mobile Automation Runsheet1\"));"));
         TimeUnit.SECONDS.sleep(SLEEP_TIME);
         Rsheet.click();
         TimeUnit.SECONDS.sleep(SLEEP_TIME);

@@ -22,6 +22,8 @@ public class PermissionAccessPage extends BasePage {
     public void permissionAccess() {
         permissionAllowBtnElement.click();
         permissionAllowBtnElement.click();
+//        permissionAllowFobElement.click();
+//        permissionAllowFobElement.click();
         permissionAllowFobElement.click();
         permissionAllowBtnElement.click();
         permissionAllowBtnElement.click();

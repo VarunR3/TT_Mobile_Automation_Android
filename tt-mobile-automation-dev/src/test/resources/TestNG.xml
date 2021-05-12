@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="tt-mobile-automation-dev" verbose="1" >
+    <test name="Android Test" >
+        <classes>
+            <class name="TTMobile.AndroidEmulator" />
+        </classes>
+    </test>
+
+</suite>

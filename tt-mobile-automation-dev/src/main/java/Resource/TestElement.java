@@ -221,7 +221,7 @@ public class TestElement {
     public static final String REPORT_CREATE_SIGN_DONE_ELEMENT = "sign_done";
     public static final String REPORT_CREATE_CHECKBOX_ELEMENT = "report_checkbox";
     public static final String REPORT_CREATE_LIST_INCIDENT_ELEMENT = "//android.widget.EditText[@text='- Choose one']";
-    public static final String REPORT_CREATE_UNSECURED_DOOR_ELEMENT = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ListView/android.widget.LinearLayout[9]/android.widget.TextView";
+    public static final String REPORT_CREATE_UNSECURED_DOOR_ELEMENT = "//android.widget.TextView[@text='150-B) Unsecured / Window (150-B)']";
     public static final String REPORT_CREATE_UNSECURED_TYPE_ELEMENT = "//android.widget.TextView[@text='- Choose one']";
     public static final String REPORT_CREATE_CHOOSE_TYPE_ELEMENT = "//android.widget.CheckedTextView[@text='Open']";
     public static final String REPORT_CREATE_LIST_PICKER_ELEMENT = "//android.widget.TextView[@text='- Choose one']";

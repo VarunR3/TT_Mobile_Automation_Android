@@ -60,11 +60,6 @@ public class CheckpointPage extends BasePage {
         TimeUnit.SECONDS.sleep(SLEEP_TIME);//
        selectTourElement.click();
         TimeUnit.SECONDS.sleep(SLEEP_TIME);//
-//        driver.closeApp();
-//        TimeUnit.SECONDS.sleep(SLEEP_TIME);
-//        driver.runAppInBackground(Duration.ofSeconds(5));
-        //showMoreElement.click();
-        //showLessElement.click();
         checkpoint1Element.click();
         TimeUnit.SECONDS.sleep(SLEEP_TIME);
         checkpoint2Element.click();
