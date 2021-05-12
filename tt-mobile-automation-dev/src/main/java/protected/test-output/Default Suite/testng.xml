@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="GuardApp Test Suite">
+    <test name = "Regression Testing Run All">
+    <groups>
+        <run>
+            <include name = "Real Device"/>
+            <include name = "Emulator"/>
+        </run>
+    </groups>
+
+    <classes>
+        <class name="TTMobile.RealDevice"/>
+    </classes>
+    </test>
+    <test name ="Regression Testing Run on Real Device">
+        <groups>
+            <run>
+                <include name="Real Device"/>
+                <include name="Emulator"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="TTMobile.Emulator"/>
+        </classes>
+    </test>
+    <test name ="Regression Testing Run on Emulator">
+        <groups>
+            <run>
+                <include name="Emulator"/>
+                <exclude name="Real Device"/>
+            </run>
+        </groups>
+    </test>
+</suite>

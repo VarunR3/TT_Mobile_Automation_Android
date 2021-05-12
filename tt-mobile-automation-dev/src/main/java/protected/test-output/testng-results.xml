@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="2" total="4" passed="2">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default Suite" duration-ms="216447" started-at="2020-03-03T13:23:23 EST" finished-at="2020-03-03T13:26:59 EST">
+    <groups>
+    </groups>
+    <test name="mobile-automation" duration-ms="216447" started-at="2020-03-03T13:23:23 EST" finished-at="2020-03-03T13:26:59 EST">
+      <class name="TTMobile.RealDevice">
+        <test-method status="PASS" signature="setup()[pri:0, instance:TTMobile.MainGuardAppTest@39c0f4a]" name="setup" is-config="true" duration-ms="8313" started-at="2020-03-03T13:23:23 EST" finished-at="2020-03-03T13:23:31 EST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="login()[pri:0, instance:TTMobile.MainGuardAppTest@39c0f4a]" name="login" duration-ms="14708" started-at="2020-03-03T13:23:31 EST" finished-at="2020-03-03T13:23:46 EST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- login -->
+        <test-method status="PASS" signature="createReport()[pri:1, instance:TTMobile.MainGuardAppTest@39c0f4a]" name="createReport" duration-ms="193401" started-at="2020-03-03T13:23:46 EST" finished-at="2020-03-03T13:26:59 EST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createReport -->
+      </class> <!-- TTMobile.RealDevice -->
+    </test> <!-- mobile-automation -->
+  </suite> <!-- Default Suite -->
+</testng-results>
